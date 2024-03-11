@@ -11,7 +11,7 @@ jobs:
 
 
     - name: Download Files
-      run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+      run: 
           Invoke-WebRequest https://raw.githubusercontent.com/Bang-Sahrul-Gunawan-Cyber/RDP-2024/master/start.bat -OutFile start.bat
           Invoke-WebRequest https://raw.githubusercontent.com/Bang-Sahrul-Gunawan-Cyber/RDP-2024/master/wallpaper.bat -OutFile wallpaper.bat
           Invoke-WebRequest https://raw.githubusercontent.com/Bang-Sahrul-Gunawan-Cyber/RDP-2024/master/loop.bat -OutFile loop.bat
