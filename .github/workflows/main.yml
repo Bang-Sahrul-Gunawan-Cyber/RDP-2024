@@ -1,4 +1,4 @@
-name: CI
+name: DIGITAL REMOTE DESKTOP
 
 on: [push, workflow_dispatch]
 
@@ -6,48 +6,40 @@ jobs:
 
 
   build:
-
-
     runs-on: windows-latest
-
-
     steps:
 
 
-    - name: Download
-
-
-      run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
-
-
+    - name: Download Files
+      run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+          Invoke-WebRequest https://raw.githubusercontent.com/Bang-Sahrul-Gunawan-Cyber/RDP-2024/master/start.bat -OutFile start.bat
+          Invoke-WebRequest https://raw.githubusercontent.com/Bang-Sahrul-Gunawan-Cyber/RDP-2024/master/wallpaper.bat -OutFile wallpaper.bat
+          Invoke-WebRequest https://raw.githubusercontent.com/Bang-Sahrul-Gunawan-Cyber/RDP-2024/master/loop.bat -OutFile loop.bat
+      
+      
+      
     - name: Extract
-
-
       run: Expand-Archive ngrok.zip
-
-
+      
     - name: Auth
-
-
-      run: .\ngrok\ngrok.exe authtoken 2dXlAvQS5f8FOuxDAX8SwKhUCGc_2REsjAo9ruXtAWYCJCZXi
+      run: .\ngrok\ngrok.exe authtoken 2Nb2ImLGfWMVBmdl67qRNMiVwDp_3yVL5dfBZQUjbBrEkBAhA
       
 
-    - name: Enable TS
-
-
-      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
-
-
-    - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-
-
-    - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-
-
-    - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
-
-
+    - name: Memberikan Data..
+    
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0        
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+        copy wallpaper.bat D:\a\wallpaper.bat
+    - name: Make Tunnel.
+      run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
+      
+    - name: PERMINTAAN CPU DAN RAM
+      run: cmd /c start.bat
+      
+      
+    - name: SUKSES TERHUBUNG KE SERVER RDP
+      run: cmd /c loop.bat
     - name: Create Tunnel
-
-
       run: .\ngrok\ngrok.exe tcp 3389
