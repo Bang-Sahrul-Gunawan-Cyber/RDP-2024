@@ -1,4 +1,0 @@
-@echo off
-echo RDP CREATION SUCCESSFULL!
-ping 127.0.0.1 > null
-echo RDP CREATION SUCCESSFULL!
